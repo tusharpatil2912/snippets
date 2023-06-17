@@ -1,6 +1,7 @@
+<input type="text" [(ngModel)]="title" class="title-input" placeholder="Title">
 <div nz-row nzJustify="space-between">
     <div nz-col nzSpan="12">
-        <p nz-paragraph style="margin-bottom: 8px;">
+        <p nz-paragraph style="margin-bottom: 15px;">
             Change Theme
             <nz-switch [ngModel]="dark" (ngModelChange)="onDarkModeChange($event)" [nzUnCheckedChildren]="unchecked"
                 [nzCheckedChildren]="checked"></nz-switch>
@@ -13,10 +14,13 @@
         </ng-template>
     </div>
     <div nz-col nzSpan="12" style="text-align: right;">
-        <nz-select [ngModel]="selectedLang" nzPlaceHolder="Language">
+        <!-- <nz-select [ngModel]="selectedLang" nzPlaceHolder="Language">
             <nz-option  *ngFor="let lang of languages" (click)="changeLanguage(lang)" [nzValue]="lang" [nzLabel]="lang"></nz-option>
-        </nz-select>
+        </nz-select> -->
+        <button *ngIf="snippetId" nz-button nzType="primary" (click)="updateSnippet()">Update</button>
+        <button *ngIf="snippetId" nz-button nzDanger nzType="primary" (click)="deleteSnippet()" style="margin-left: 1rem;">Delete</button>
+        <button *ngIf="!snippetId" nz-button nzType="primary" (click)="addSnippet()">Add</button>
     </div>
 </div>
 
-<nz-code-editor style="height: 200px" [ngModel]="code" [nzEditorOption]="nzEditorOption"></nz-code-editor>
+<nz-code-editor style="height: 200px" [(ngModel)]="code" [nzEditorOption]="nzEditorOption"></nz-code-editor>

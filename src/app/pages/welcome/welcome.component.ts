@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+// import { Store } from '@ngrx/store';
 import { NzConfigService } from 'ng-zorro-antd/core/config';
-import { AppState, getSnippets } from 'src/app/redux';
-import { GetSnippetsAction } from 'src/app/redux/snippet.action';
+// import { AppState, getSnippets } from 'src/app/redux';
+// import { GetSnippetsAction } from 'src/app/redux/snippet.action';
+import { SharedService } from 'src/app/shared.service';
 import { Snippet } from 'src/app/snippet.model';
 
 @Component({
@@ -14,11 +15,13 @@ import { Snippet } from 'src/app/snippet.model';
 export class WelcomeComponent implements OnInit {
 
   dark = false;
-  snippetId:any;
-
   nzEditorOption: any;
 
-  code = `Import { Life } from everything`;
+  selectedSnippet:Snippet;
+  
+  snippetId:any;
+  code = ``;
+  title = '';
 
   selectedLang = 'html';
   languages = [
@@ -27,9 +30,11 @@ export class WelcomeComponent implements OnInit {
     'html'
   ];
 
-  constructor(private nzConfigService: NzConfigService, private store:Store<AppState>,
-    private router: Router,
-    private activeRoute: ActivatedRoute) {}
+  constructor(private nzConfigService: NzConfigService , // private store:Store<AppState>,
+    private router: Router, private service: SharedService,
+    private activeRoute: ActivatedRoute) {
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    }
 
   onDarkModeChange(dark: boolean): void {
     this.dark = dark;
@@ -47,7 +52,9 @@ export class WelcomeComponent implements OnInit {
     this.nzEditorOption = {
       language: this.selectedLang
     };
-    this.loadData();
+    if(this.snippetId) {
+      this.loadData();
+    } 
   }
 
   changeLanguage(lang: string){
@@ -55,16 +62,37 @@ export class WelcomeComponent implements OnInit {
   }
 
   loadData(){
-    this.store.select(getSnippets).subscribe(async (data:any)=>{
-      if(!data.isLoaded) {
-        this.store.dispatch(new GetSnippetsAction(''));
-      } else {
-        let snippets = data.value;
-        const snip = snippets.find((s: Snippet)=> s.id === this.snippetId);
-        this.code = snip.code;
-      }
+    this.service.getSnippetById(this.snippetId).subscribe(data=>{
+      this.selectedSnippet = this.service.adaptToSnippetFromDocumentData(data);
+      this.code = this.selectedSnippet.code;
+      this.title = this.selectedSnippet.title;
     })
   }
 
+  updateSnippet(){
+    this.service.updateSnippet(this.snippetId,{title: this.title, code: this.code}).then(data=>{
+      console.log("updated");
+    }).catch((err)=>{
+      console.log(err);
+    });
+  }
+
+  addSnippet(){
+    this.service.addSnippet({title: this.title, code:this.code}).then(data=>{
+      console.log(data.id);
+      this.router.navigate(['snippet',data.id])
+    }).catch(err=>{
+      console.log(err);
+    });
+  }
+
+  deleteSnippet(){
+    this.service.deleteSnippet(this.snippetId).then(data=>{
+      console.log("deleted");
+      this.router.navigate(['']);
+    }).catch((err)=>{
+      console.log(err);
+    });
+  }
 
 }

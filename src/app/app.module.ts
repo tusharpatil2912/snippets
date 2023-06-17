@@ -22,13 +22,15 @@ import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { NzIconModule } from "ng-zorro-antd/icon";
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { CommonModule } from '@angular/common';
+import { NzButtonModule } from "ng-zorro-antd/button";
+// import { CommonModule } from '@angular/common';
 import { NzGridModule } from 'ng-zorro-antd/grid';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { reducers } from './redux';
-import { SnippetEffect } from './redux/snippet.effect';
-import { StoreDevtoolsModule} from '@ngrx/store-devtools'
+import { DefaultComponent } from './pages/default/default.component';
+// import { StoreModule } from '@ngrx/store';
+// import { EffectsModule } from '@ngrx/effects';
+// import { reducers } from './redux';
+// import { SnippetEffect } from './redux/snippet.effect';
+// import { StoreDevtoolsModule} from '@ngrx/store-devtools'
 
 registerLocaleData(en);
 
@@ -46,7 +48,8 @@ const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    DefaultComponent
   ],
   imports: [
     BrowserModule,
@@ -67,10 +70,11 @@ const firebaseConfig = {
     NzIconModule,
     FormsModule, 
     ReactiveFormsModule, 
-    StoreModule.forRoot(reducers), EffectsModule.forRoot([SnippetEffect]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 30
-    })
+    NzButtonModule,
+    // StoreModule.forRoot(reducers), EffectsModule.forRoot([SnippetEffect]),
+    // StoreDevtoolsModule.instrument({
+    //   maxAge: 30
+    // })
   ],
   providers: [SharedService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

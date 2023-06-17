@@ -1,20 +1,20 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar"
-            nzCollapsible
-            nzWidth="256px"
-            nzBreakpoint="md"
-            [(nzCollapsed)]="isCollapsed"
-            [nzTrigger]="null">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
     <div class="sidebar-logo">
-      <span nz-icon nzType="code" nzTheme="outline"></span>
-      <h1>Snippets</h1>
+      <a routerLink="/">
+        <span class="my-icon" nz-icon nzType="code" nzTheme="outline"></span>
+        <h1>Snippets</h1>
+      </a>
     </div>
+    <!-- <button nz-button nzType="primary" routerLink="/add-snippet" nzBlock>Add New Snippet</button> -->
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzTitle="Add New Snippet" nzIcon="plus" routerLink="/add-snippet"></li>
       <li nz-submenu nzOpen nzTitle="All Snippets" nzIcon="code">
         <ul>
-          <li nz-menu-item nzMatchRouter *ngFor="let snip of snippets">
-            <a routerLink="/welcome/{{snip.id}}">{{snip.title}}</a>
-          </li> 
+          <li nz-menu-item nzMatchRouter *ngFor="let snip of snippets$ | async">
+            <a routerLink="/snippet/{{snip.id}}">{{snip.title}}</a>
+          </li>
         </ul>
       </li>
     </ul>
@@ -23,10 +23,7 @@
     <nz-header>
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <span class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></span>
+          <span class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
         </span>
       </div>
     </nz-header>

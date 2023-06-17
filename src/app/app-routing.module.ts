@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
+import { DefaultComponent } from './pages/default/default.component';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/welcome/1' },
-  { path: 'welcome/:id', component: WelcomeComponent }
+  { path: '', pathMatch: 'full', redirectTo: '/welcome' },
+  { path: 'welcome', component: DefaultComponent},
+  { path: 'snippet/:id', component: WelcomeComponent },
+  { path: 'add-snippet', component: WelcomeComponent}
 ];
 
 @NgModule({
