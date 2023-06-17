@@ -1,4 +1,27 @@
 <h1>Welcome to Snippets</h1>
 
-<h2>Create Snippets Quickly</h2>
-<h3>Browse existing snippets</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Create Snippets Quickly</h2>
+                    <hr />
+                    <p class="card-text">Create code snippets quickly with a great code editor</p>
+                    <button routerLink="/add-snippet" nz-button nzType="primary">Add New Snippet</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="card">
+                <h3 class="card-title">Browse existing snippets</h3>
+                <hr />
+                <p class="card-text">Select already create snippets to update or delete them</p>
+                <input nz-input class="form-select" [(ngModel)]="inputValue" [nzAutocomplete]="auto" (ngModelChange)="onChange($event)">
+                <nz-autocomplete #auto>
+                    <nz-auto-option *ngFor="let op of filteredOptions" [nzValue]="op.id" routerLink="/snippet/{{op.id}}">{{op.title}}</nz-auto-option>
+                </nz-autocomplete>
+            </div>
+        </div>
+    </div>
+</div>

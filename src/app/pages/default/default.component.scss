@@ -1,10 +1,12 @@
-* {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+// * {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
 
 h1 {
+    width: 100%;
+    text-align: center;
     font-size: 70px;
     font-weight: 600;
     background-image: conic-gradient(#553c9a 0%, #553c9a 33%, #ee4b2b 33%, #ee4b2b 66%, #00c2cb 66%, #00c2cb 99%);
@@ -14,7 +16,7 @@ h1 {
 }
 
 h2 {
-    font-size: 70px;
+    font-size: 40px;
     font-weight: 600;
     background-image: linear-gradient(to left, #553c9a, #b393d3);
     color: transparent;
@@ -23,12 +25,23 @@ h2 {
 }
 
 h3 {
-    font-size: 70px;
+    font-size: 40px;
     font-weight: 600;
     background-image: linear-gradient(to right, #553c9a 45%, #ee4b2b);
     color: transparent;
     background-clip: text;
     -webkit-background-clip: text;
+}
+
+.card {
+    text-align: center;
+    height: 15rem;
+}
+
+.form-select {
+    width: 90%;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 @media screen and (max-width: 480px) {

@@ -6,6 +6,7 @@ import { NzConfigService } from 'ng-zorro-antd/core/config';
 // import { GetSnippetsAction } from 'src/app/redux/snippet.action';
 import { SharedService } from 'src/app/shared.service';
 import { Snippet } from 'src/app/snippet.model';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-welcome',
@@ -31,7 +32,7 @@ export class WelcomeComponent implements OnInit {
   ];
 
   constructor(private nzConfigService: NzConfigService , // private store:Store<AppState>,
-    private router: Router, private service: SharedService,
+    private router: Router, private service: SharedService, private message: NzMessageService,
     private activeRoute: ActivatedRoute) {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
@@ -70,28 +71,43 @@ export class WelcomeComponent implements OnInit {
   }
 
   updateSnippet(){
+    const id = this.message.loading('Updating the Snippet..', { nzDuration: 0 }).messageId;
     this.service.updateSnippet(this.snippetId,{title: this.title, code: this.code}).then(data=>{
-      console.log("updated");
+      //console.log("updated");
+      this.message.remove(id);
+      this.message.create('success', `Snippet Updated Successfully!`);
     }).catch((err)=>{
       console.log(err);
+      this.message.remove(id);
+      this.message.create('error', `Something went wrong while updating the Snippet!`);
     });
   }
 
   addSnippet(){
+    const id = this.message.loading('Adding the Snippet..', { nzDuration: 0 }).messageId;
     this.service.addSnippet({title: this.title, code:this.code}).then(data=>{
-      console.log(data.id);
+      //console.log(data.id);
+      this.message.remove(id);
+      this.message.create('success', `Snippet Added Successfully!`);
       this.router.navigate(['snippet',data.id])
     }).catch(err=>{
       console.log(err);
+      this.message.remove(id);
+      this.message.create('error', `Something went wrong while adding the Snippet!`);
     });
   }
 
   deleteSnippet(){
+    const id = this.message.loading('Deleting the Snippet..', { nzDuration: 0 }).messageId;
     this.service.deleteSnippet(this.snippetId).then(data=>{
-      console.log("deleted");
+      //console.log("deleted");
+      this.message.remove(id);
+      this.message.create('success', `Snippet Deleted Successfully!`);
       this.router.navigate(['']);
     }).catch((err)=>{
       console.log(err);
+      this.message.remove(id);
+      this.message.create('error', `Something went wrong while deleting the Snippet!`);
     });
   }
 

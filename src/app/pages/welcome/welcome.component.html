@@ -17,10 +17,10 @@
         <!-- <nz-select [ngModel]="selectedLang" nzPlaceHolder="Language">
             <nz-option  *ngFor="let lang of languages" (click)="changeLanguage(lang)" [nzValue]="lang" [nzLabel]="lang"></nz-option>
         </nz-select> -->
-        <button *ngIf="snippetId" nz-button nzType="primary" (click)="updateSnippet()">Update</button>
+        <button *ngIf="snippetId" nz-button nzType="primary" (click)="updateSnippet()"  [disabled]="title.length===0">Update</button>
         <button *ngIf="snippetId" nz-button nzDanger nzType="primary" (click)="deleteSnippet()" style="margin-left: 1rem;">Delete</button>
-        <button *ngIf="!snippetId" nz-button nzType="primary" (click)="addSnippet()">Add</button>
+        <button *ngIf="!snippetId" nz-button nzType="primary" (click)="addSnippet()" [disabled]="title.length===0">Add</button>
     </div>
 </div>
 
-<nz-code-editor style="height: 200px" [(ngModel)]="code" [nzEditorOption]="nzEditorOption"></nz-code-editor>
+<nz-code-editor class="editor" [(ngModel)]="code" [nzEditorOption]="nzEditorOption"></nz-code-editor>

@@ -1,6 +1,6 @@
 .editor {
-    height: 200px;
-    margin-top: 5rem;
+    height: 500px;
+    width: 100%;
   }
 
 .title-input {
@@ -10,4 +10,11 @@
   border-bottom: 2px solid blue;
   margin-bottom: 1rem;
   font-size: x-large;
+}
+
+
+@media screen and (max-width: 480px) {
+  .editor {
+    height: 400px;
+  }
 }

@@ -26,6 +26,9 @@ import { NzButtonModule } from "ng-zorro-antd/button";
 // import { CommonModule } from '@angular/common';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { DefaultComponent } from './pages/default/default.component';
+import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 // import { StoreModule } from '@ngrx/store';
 // import { EffectsModule } from '@ngrx/effects';
 // import { reducers } from './redux';
@@ -71,12 +74,15 @@ const firebaseConfig = {
     FormsModule, 
     ReactiveFormsModule, 
     NzButtonModule,
+    NzMessageModule,
+    NzCardModule,
+    NzAutocompleteModule,
     // StoreModule.forRoot(reducers), EffectsModule.forRoot([SnippetEffect]),
     // StoreDevtoolsModule.instrument({
     //   maxAge: 30
     // })
   ],
-  providers: [SharedService, { provide: NZ_I18N, useValue: en_US }],
+  providers: [NzMessageService, SharedService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
